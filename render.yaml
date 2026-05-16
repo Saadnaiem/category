@@ -3,7 +3,7 @@ services:
     name: category-management-ai
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn category_management_ai.web.api:app --host 0.0.0.0 --port $PORT"
+    startCommand: "streamlit run category_management_ai/app/dashboard.py --server.port $PORT --server.address 0.0.0.0"
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
