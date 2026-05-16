@@ -1,0 +1,26 @@
+category_management_ai/
+│
+├── data/
+│   ├── raw/                  # Original CSV/Excel files
+│   ├── processed/            # Cleaned data
+│   └── outputs/              # Final NBA CSVs and reports
+│
+├── src/
+│   ├── __init__.py
+│   ├── data_ingestion.py     # Schema validation and loading
+│   ├── feature_store.py      # Feature engineering scripts
+│   ├── models/
+│   │   ├── clustering.py     # K-Means logic, scaling, elbow methods
+│   │   └── forecasting.py    # XGBoost pipelines
+│   ├── rules_engine.py       # Deterministic business logic
+│   └── evaluation.py         # KPI calculation and model metrics
+│
+├── notebooks/                # Jupyter notebooks for EDA and model tuning
+│   ├── 01_eda.ipynb
+│   └── 02_cluster_analysis.ipynb
+│
+├── app/
+│   └── dashboard.py          # Streamlit application
+│
+├── requirements.txt          # Python dependencies
+└── main.py                   # Master orchestration script

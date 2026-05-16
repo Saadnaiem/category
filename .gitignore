@@ -1,0 +1,25 @@
+# Ignore data files to prevent uploading sensitive/heavy data to GitHub
+category_management_ai/data/raw/*
+!category_management_ai/data/raw/.gitkeep
+
+category_management_ai/data/outputs/*
+!category_management_ai/data/outputs/.gitkeep
+
+# Python cache and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+.env
+venv/
+env/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
