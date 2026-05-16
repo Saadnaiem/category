@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 import shutil
 import os
+import sys
 import subprocess
 from typing import List
 import pandas as pd
@@ -24,9 +25,12 @@ def read_root():
 
 def run_pipeline(days: int):
     print(f"Running pipeline with {days} days...")
-    # Using python executable to run the script
-    subprocess.run(["python", MAIN_PY_PATH, "--days", str(days)], check=True)
-    print("Pipeline finished.")
+    # Safe execute using sys.executable so Linux/Render environments don't fail searching for 'python'
+    try:
+        subprocess.run([sys.executable, MAIN_PY_PATH, "--days", str(days)], check=True)
+        print("Pipeline finished successfully.")
+    except Exception as e:
+        print(f"Pipeline crashed: {e}")
 
 @app.post("/upload")
 async def upload_files(

@@ -89,11 +89,24 @@
                     const data = await response.json();
                     
                     if (response.ok) {
-                        setMessage(data.message + " Please wait a minute while we process, then the dashboard will refresh automatically.");
+                        setMessage(data.message + " Please wait while we process... the dashboard will appear when ready!");
                         setSelectedFiles([]); // clear
                         
-                        // Automatically fetch dashboard data after giving AI time to process
-                        setTimeout(fetchDashboard, 8000); 
+                        // Begin smart polling: The AI pipeline takes time to run on massive data.
+                        // We will try to fetch the dashboard every 10 seconds instead of just once!
+                        const pollDashboard = setInterval(async () => {
+                            try {
+                                const dashRes = await fetch("/api/dashboard");
+                                const dashData = await dashRes.json();
+                                if (!dashData.error) {
+                                    clearInterval(pollDashboard);
+                                    setDashboardData(dashData);
+                                    setView("dashboard");
+                                }
+                            } catch (e) {
+                                // Keep waiting
+                            }
+                        }, 10000);
                         
                     } else {
                         throw new Error(data.message || "Upload failed");
